@@ -1,76 +1,70 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; 
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import PhoneInput from 'react-native-phone-number-input';
-import CountryPicker from 'react-native-country-picker-modal'; 
 
 const Signin = () => {
   const [phoneValue, setPhoneValue] = useState('');
   const [formattedValue, setFormattedValue] = useState('');
-  const [country, setCountry] = useState({ code: 'BD', name: 'Bangladesh' });
   const [loading, setLoading] = useState(false);
   const phoneInput = useRef(null);
 
   const handleContinue = () => {
     if (phoneInput.current) {
-      setLoading(true); 
+      setLoading(true);
       const isValid = phoneInput.current.isValidNumber(phoneValue);
       if (isValid) {
-        Alert.alert("Login Successful", `Phone Number: ${formattedValue}`);
+        Alert.alert('Login Successful', `Phone Number: ${formattedValue}`);
       } else {
-        Alert.alert("Error", "Invalid phone number. Please enter a valid number.");
+        Alert.alert('Error', 'Invalid phone number. Please enter a valid number.');
       }
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <Image
-          source={require('./ảnh.jpg')} 
-          style={styles.banner}
-        />
-        
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Get your groceries with nectar</Text>
-          <View style={styles.phoneInputContainer}>
-            <CountryPicker
-              countryCode={country.code}
-              withFlag
-              withFilter
-              withCountryNameButton={false}
-              onSelect={(country) => {
-                setCountry(country);
-                setPhoneValue(''); 
-              }}
-              containerButtonStyle={styles.countryPicker}
-            />
-            <PhoneInput
-              ref={phoneInput}
-              defaultValue={phoneValue}
-              defaultCode={country.code}
-              layout="first"
-              onChangeText={(text) => {
-                setPhoneValue(text);
-                setFormattedValue(phoneInput.current?.getNumberAfterPossiblyEliminatingZero() || '');
-              }}
-              onChangeFormattedText={(text) => {
-                setFormattedValue(text);
-              }}
-              containerStyle={styles.phoneInput}
-              textContainerStyle={styles.phoneTextInput}
-              codeTextStyle={styles.codeTextStyle}
-              textInputStyle={styles.inputStyle}
-              placeholder="Phone Number"
-            />
-          </View>
+        <Image source={require('./ảnh.jpg')} style={styles.banner} />
+
+        <Text style={styles.title}>Get your groceries{'\n'}with nectar</Text>
+
+        <View style={styles.phoneInputContainer}>
+          <PhoneInput
+            ref={phoneInput}
+            defaultValue={phoneValue}
+            defaultCode="BD"
+            layout="first"
+            onChangeText={(text) => {
+              setPhoneValue(text);
+              setFormattedValue(phoneInput.current?.getNumberAfterPossiblyEliminatingZero() || '');
+            }}
+            onChangeFormattedText={(text) => {
+              setFormattedValue(text);
+            }}
+            containerStyle={styles.phoneInput}
+            textContainerStyle={styles.phoneTextInput}
+            codeTextStyle={styles.codeTextStyle}
+            textInputStyle={styles.inputStyle}
+            placeholder="Phone Number"
+          />
         </View>
 
         <Text style={styles.orText}>Or connect with social media</Text>
 
         {loading ? (
-          <ActivityIndicator size="large" color="#4285F4" style={styles.loadingIndicator} />
+          <ActivityIndicator size="large" color="#5383EC" style={styles.loadingIndicator} />
         ) : (
           <>
             <TouchableOpacity style={styles.googleButton} onPress={handleContinue}>
@@ -88,50 +82,39 @@ const Signin = () => {
   );
 };
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'flex-start',  // Align items to the start (left side)
-    paddingHorizontal: 20,
-    paddingVertical: 40,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   banner: {
-    width: '100%',
-    height: 250,
-    resizeMode: 'contain',
-    marginBottom: 20,
-  },
-  textContainer: {
-    alignItems: 'flex-start',  // Align text to the left
-    width: '100%',
+    width: width,
+    height: 300,
+    resizeMode: 'cover',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '600',
-    textAlign: 'left', // Align title text to the left
-    marginBottom: 20,
+    color: '#030303',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    marginVertical: 20,
+    marginLeft: 20,
   },
   phoneInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    width: '100%',
+    width: '90%',
     marginBottom: 20,
-    height: 50,
-  },
-  countryPicker: {
-    width: 100,  
-    marginRight: 5,  
   },
   phoneInput: {
-    flex: 1,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
   },
   phoneTextInput: {
-    paddingVertical: 0,
     backgroundColor: '#fff',
     borderRadius: 8,
   },
@@ -139,32 +122,32 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   inputStyle: {
-    paddingVertical: 0,
     backgroundColor: '#fff',
   },
   orText: {
     fontSize: 14,
-    color: '#888',
-    marginBottom: 10,
+    fontWeight: '600',
+    color: '#828282',
     textAlign: 'center',
+    marginVertical: 10,
   },
   googleButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#4285F4',
-    padding: 15,
-    borderRadius: 8,
-    width: '100%',
-    marginBottom: 10,
+    backgroundColor: '#5383EC',
+    paddingVertical: 15,
+    width: '90%',
+    borderRadius: 19,
     justifyContent: 'center',
+    marginBottom: 15,
   },
   facebookButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#3b5998',
-    padding: 15,
-    borderRadius: 8,
-    width: '100%',
+    backgroundColor: '#4A66AC',
+    paddingVertical: 15,
+    width: '90%',
+    borderRadius: 19,
     justifyContent: 'center',
   },
   buttonText: {

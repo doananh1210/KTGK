@@ -3,5 +3,5 @@
 - **Mã SV**: BIT220301
 
 ## Ảnh Chụp Màn Hình
-![alt](1.jpg)
-![alt](2.jpg)
+![alt](home.jpg)
+![alt](login.jpg)

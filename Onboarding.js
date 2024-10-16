@@ -2,13 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const { width, height } = Dimensions.get('window');
-
 const Onboarding = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: 'https://s3-alpha-sig.figma.com/img/65e9/1e96/4e8f13cbdb37604e351d37d72a1eb837?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=O5qjFLGKk6FlyMzNetSaH-cVrcNKehohrP-Xh9eC9PfJfkkyhTO4Mfma-1fHNgERpE~p22xEfyB8HmYa6XRjjWD-TMxM0AS6R7HPIGKVymH6t981RsEC94-JcKZqHxrYD8Uvr6Zahuv7co8RLBQklKu9dufJWOP6Hq3omcMRw7AC0feCMdWGEvbjUVN55~hfiaMZCd0Hru-ZO7ZJk0-O5685-7qJT2V01rocnjvdAFUO5J~CZ3518ltspmexCVlPG30sh7oReVDuzWvyxnVjV-NlGZkD9IRMcLk5LmNBvhU3QbtC8BdgHGDqQv59hm-utG72-HbgZqs23AGqWM-ldw__' }}
+        source={require('./ảnh2.jpg')} 
         style={styles.image}
       />
       <View style={styles.overlay}>
@@ -36,9 +34,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: 420,
+    height: 896.35,
     position: 'absolute',
+    top: 0,
+    left: 0,
   },
   overlay: {
     flex: 1,
@@ -56,22 +56,26 @@ const styles = StyleSheet.create({
     marginBottom: 40,  
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 48,
+    fontWeight: '600',
     textAlign: 'center',
     color: '#FFFFFF',
+    lineHeight: 56,
+    fontFamily: 'Gilroy',
   },
   subtitle: {
-    fontSize: 18,
-    color: '#B0B0B0',
+    fontSize: 16,
+    lineHeight: 15,
+    color: 'rgba(252, 252, 252, 0.7)', 
     textAlign: 'center',
-    marginTop: 10,
+    fontFamily: 'Gilroy-Medium',
+    marginTop: 6,
   },
   button: {
     backgroundColor: '#53B175',
     paddingVertical: 15,
     paddingHorizontal: 40,
-    borderRadius: 25,
+    borderRadius: 19,
     shadowOffset: {
       width: 0,
       height: 2,
